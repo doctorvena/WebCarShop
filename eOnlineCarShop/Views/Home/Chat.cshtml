@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using Data_CS.EF_Models
+@model List<Message>
+@inject SignInManager<User> signInManager
+@{
+    ViewData["Title"] = "Chat Live";
+}
+
+@if (signInManager.IsSignedIn(User))
+{
+    <div class="wrapper" style="background: #323232; position:absolute; position:center; width:70%; height: 90%; overflow-y: scroll hidden">
+
+        <div class="row">
+            <div class="col-12">
+                <ul id="messageList"></ul>
+            </div>
+        </div>
+
+        <div class="container" style="display: table; position: absolute; bottom: 5px; right: 10px; overflow-y: scroll hidden">
+
+
+            <input type="hidden" value="@User.Identity.Name" id="txtUserName" class="form-control" />
+            <div class="form-group">
+                <input type="text" id="txtMessage" class="form-control" onkeydown="if (event.keyCode == 13) document.getElementById('btnSend').click()" />
+                <div class="form-group">
+                    <input type="button" id="btnSend" value="Send" class="btn btn-outline-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>You have to login</p>
+}
+
+<script>
+
+    $("#txtMessage").keydown(function (event) {
+        if (event.keyCode === 13) {
+            $("#btnSend").click();
+        }
+    });
+</script>
+
+
+
+<script src="~/js/jquery.min.js"></script>
+<script src="~/js/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/SignalRcHandler.js"></script>
+<script src="~/js/Chat.js"></script>

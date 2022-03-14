@@ -1,0 +1,44 @@
+﻿@using eOnlineCarShop.ViewModels
+@model List<ShowCarsVM>
+<style>
+    .cards {
+        background-color: #333F44;
+        margin: 10px;
+        padding: 5px;
+        border-radius: 10px;
+        width: 31%;
+        float: left;
+        height: 510px;
+    }
+</style>
+
+
+@if (Model.Any())
+{
+    @foreach (var item in Model)
+    {
+        <div class="cards">
+            <div class="cardimage">
+                <img src="@item.images[0]">
+
+            </div>
+            <div class="cardtext">
+                <h1 class="card-title">@item.Brand @item.CarModel </h1>
+                <h2>@item.Price</h2>
+                <h4>Fuel: <small class="text-muted">@item.Fuel</small></h4>
+                <h4>Transmission: <small class="text-muted">@item.Transmission</small></h4>
+                <h4>Color: <small class="text-muted">@item.Color</small></h4>
+                <h4>Kilometre: <small class="text-muted">@item.Kilometre</small></h4>
+                <h4>Date: <small class="text-muted">@item.DateOfManufacture</small></h4>
+                <a id="cardbtn" class="btn btn-primary" asp-controller="Shop" asp-action="CarDetails" asp-route-id="@item.CarId ">Pregled</a>
+            </div>
+        </div>
+
+    }
+}
+else
+{
+    <tr>
+        <td>No record</td>
+    </tr>
+}

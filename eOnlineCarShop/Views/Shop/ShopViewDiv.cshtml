@@ -1,0 +1,116 @@
+﻿@{
+    ViewData["Title"] = "Shop";
+    var txtunos = ViewData["txtUnosKey"];
+}
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    #glavni {
+        display: flex;
+    }
+
+    .wrapper {
+        width: 100%;
+        height: 100%
+    }
+
+    img {
+        width: 320px;
+        height: 213px;
+        margin: 3px;
+    }
+
+    .cards {
+        background-color: #333F44;
+        margin: 10px;
+        padding: 5px;
+        border-radius: 10px;
+        width: 31%;
+        float: left;
+        height: 510px;
+    }
+
+    #cardbtn {
+        margin: 2px;
+        position: absolute;
+        /*bottom:5px;*/
+    }
+
+    #btne {
+        position: relative;
+        margin: 5px;
+    }
+    h1 {
+        font-size: 6px;
+        font-size: 1.5vw;
+    }
+</style>
+<body onload="getUsers()">
+
+<div id="glavni">
+    <div class="wrapper" style="background:#323232;">
+    <label style="margin-top:10px; margin-left:10px">Search</label>
+    <input type="text" class="form-control" id="txtSearch" style=" height:30px; width: 300px; margin:10px;" onchange="getUsers()" onkeyup="getUsers()"/>
+        <div id="grdUsers"></div>
+        @*@if (shoplista.any())
+        {
+            @foreach (var item in shoplista)
+            {
+                <div class="cards">
+                    <div class="cardimage">
+                        <img src="@item.images[0]">
+
+                    </div>
+                    <div class="cardtext">
+                        <h1 class="card-title">@item.brand @item.carmodel </h1>
+                        <h2>@item.price</h2>
+                        <h4>fuel: <small class="text-muted">@item.fuel</small></h4>
+                        <h4>transmission: <small class="text-muted">@item.transmission</small></h4>
+                        <h4>color: <small class="text-muted">@item.color</small></h4>
+                        <h4>kilometre: <small class="text-muted">@item.kilometre</small></h4>
+                        <h4>date: <small class="text-muted">@item.dateofmanufacture</small></h4>
+                        <a id="cardbtn" class="btn btn-primary" asp-controller="shop" asp-action="cardetails" asp-route-id="@item.carid ">pregled</a>
+                    </div>
+                </div>
+
+            }
+        }*@
+    </div>
+</div>
+
+<a id="btne" class="btn btn-danger" asp-area="" asp-controller="Shop" asp-action="ShoppingCart">View My Shopping Cart</a>
+
+<a id="btne" class="btn btn-success" asp-controller="Shop" asp-action="Checkout">Checkout</a>
+
+</body>
+<script>
+
+    $(() => {
+        getUsers();
+
+        $('#txtSearch').on('keyup', () => {
+            getUsers();
+        });
+    });
+    getUsers();
+
+    function getUsers() {
+        $.ajax({
+            url: '@Url.Action("SearchCars", "Shop")',
+            dataType: 'html',
+            method: 'GET',
+            data: { Searchtxt: $('#txtSearch').val() },
+            success: function (res) {
+                $('#grdUsers').html('').html(res);
+            },
+            error: function (err) {
+                cosole.log(err);
+            }
+        })
+    }
+</script>

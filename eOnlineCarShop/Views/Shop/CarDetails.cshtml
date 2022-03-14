@@ -1,0 +1,86 @@
+﻿@model eOnlineCarShop.ViewModels.ShowCarDetailsVM
+
+@{
+    ViewData["Title"] = "CarDetails";
+}
+
+<h1>@Model.Brand @Model.Model</h1>
+
+<style>
+    .wrapper {
+        padding: 2.5%;
+    }
+
+    .imgc, #carouselExampleControls {
+        float: right;
+        width: 670px;
+        height: 350px;
+    }
+
+    p {
+        border-bottom: 2px solid #14FFEC;
+        width: 30%;
+        padding: 1px;
+    }
+
+    img, #carouselExampleControls {
+        width: 40rem;
+        height: auto;
+    }
+</style>
+
+<div class=".imgc" style="background:#323232;">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="@Model.images[0]" class="d-block w-100">
+            </div>
+            @for (int i = 1; i < Model.images.Count; i++)
+            {
+                <div class="carousel-item">
+                    <img src="@Model.images[i]" class="d-block w-100">
+                </div>
+            }
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </a>
+    </div>
+    @*<div>
+            <div class="imgc">
+                <img src="@Model.images[0]">
+            </div>
+            @for (int i = 1; i < Model.images.Count; i++)
+            {
+                <div class="imgc">
+                    <img src="@Model.images[i]">
+                </div>
+            }
+        </div>*@
+    <div id="product-details">
+        <p>Distance Traveled: @Model.Kilometre km</p>
+        <div id="product-price">
+            <p>Price: @Model.Price </p>
+        </div>
+        <p>Color: @Model.Color</p>
+        <p>WheelSize: @Model.WheelSize</p>
+        <p>DateOfManufacture: @Model.DateOfManufacture</p>
+        <p>ccm: @Model.Ccm</p>
+        <p>PowerKw: @Model.PowerKw</p>
+        <p>PowerPS: @Model.PowerPS</p>
+        <p>Drive Type: @Model.DriveType</p>
+        <p>Number Of Seats: @Model.NumberOfSeats</p>
+        <p>Number Of Dors: @Model.NumberOfDors</p>
+        <p>Number Of Gears: @Model.NumberOfGears</p>
+        <p>Fuel Type: @Model.Fuel</p>
+        <p>Transmission: @Model.Transmission</p>
+        <p>Vehicle Type: @Model.VehicleType</p>
+        <a class="btn btn-primary" asp-controller="Shop" asp-action="AddToCart" asp-route-id="@Model.carID"> Add to cart </a>
+        <a class="btn btn-danger" asp-controller="Shop" asp-action="ShopViewDiv">Back to shop</a>
+        <a id="btne" class="btn btn-danger" asp-area="" asp-controller="Shop" asp-action="ShoppingCart">View My Shopping Cart</a>
+
+    </div>
+</div>

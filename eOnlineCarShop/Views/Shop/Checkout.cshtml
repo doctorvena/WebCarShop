@@ -1,0 +1,92 @@
+﻿@using eOnlineCarShop.ViewModels
+@model List<ChackOutCarVM>
+@{
+    ViewData["Title"] = "CarDetails";
+}
+@{
+    bool pomocuser = false;
+    int userID = -1;
+}
+
+<style>
+    wrapper {
+        padding: 4%;
+    }
+
+    img {
+        width: 20rem;
+        height: auto;
+        margin: 3px;
+    }
+
+    .cards {
+        background-color: #333F44;
+        margin: 3%;
+        padding: 5px;
+        border-radius: 10px;
+    }
+
+    #cardbtn {
+        margin: 2%;
+    }
+
+    p {
+        border-bottom: 1px solid white;
+        width: 20%;
+    }
+
+    h5 {
+        font-size: 40px;
+    }
+
+    a {
+        border-bottom: 1px solid white;
+    }
+</style>
+<h5>Checkout</h5>
+<div class="wrapper" style="background:#323232;">
+    @if (Model.Any())
+    {
+        int[] pomocniNizID = new int[Model.Count()];
+        int c = 0;
+        @foreach (var item in Model)
+        {
+            if (!pomocniNizID.Contains(item.carID))
+            {
+                <div class="cards ">
+                    <h5 class="card-title">@item.Brand @item.Model</h5>
+                    <h4>Color: @item.Color</h4>
+                    <h4>Fuel: @item.Fuel</h4>
+                    <h4>Date of Maunufacture: @item.DateOfManufacture</h4>
+                    <h4>Drive type: @item.DriveType</h4>
+                </div>
+                pomocniNizID[c] = item.carID;
+                c++;
+            }
+        }
+        @foreach (var item in Model)
+        {
+            if (pomocuser == false)
+            {
+                <div class="cards ">
+                    <h1>User details</h1>
+                    <h4>Firstname: @item.firstname</h4>
+                    <h4>Lastname: @item.lastname</h4>
+                    <h4>email: @item.email</h4>
+                    <h4>Phone numver: @item.phonenumber</h4>
+                    <h4>Date: @item.DateofPurchase</h4>
+                </div>      
+                pomocuser = true;
+                userID = item.userid;
+            }
+        }
+    }
+    else
+    {
+        <p>Your Cart is Empty</p>
+    }
+    <a class="btn btn-danger" asp-controller="Shop" asp-action="ShopViewDiv">Back to shop</a>
+
+    <a id="cardbtn" class="btn btn-primary" asp-controller="ReportCheckout" asp-action="Print">Print</a>
+
+</div>

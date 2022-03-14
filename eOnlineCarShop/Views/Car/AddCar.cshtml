@@ -1,0 +1,155 @@
+﻿@using eOnlineCarShop.ViewModels
+@model AddCarVM
+@{
+    ViewData["Title"] = "AddCar";
+}
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<h1>Dodaj te novo vozilo</h1>
+
+<form asp-action="Save" enctype="multipart/form-data">
+    <div class="form-group">
+        <div class="form-group">
+            <label class="badge badge-pill badge-dark">Brand</label>
+            <select id="SelectedBrand" class="form-control form-control-lg" asp-for="BrandID" asp-items="Model.Brendovi"></select>
+        </div>
+        <div class="form-group">
+
+            <label class="badge badge-pill badge-dark">Model</label>
+
+            <select id="itsModel" class="form-control form-control-lg" asp-for="CarModelID" asp-items="Model.Modeli">
+            </select>
+
+        </div>
+        <div class="form-group">
+            <label class="badge badge-pill badge-dark">Fuel</label>
+            <select class="form-control form-control-lg" asp-for="FuelID" asp-items="Model.FuelName"></select>
+        </div>
+        <div class="form-group">
+            <label class="badge badge-pill badge-dark">Vehicle type</label>
+            <select class="form-control form-control-lg" asp-for="VehicleTypeID" asp-items="Model.TypeName"></select>
+        </div>
+        <div class="form-group">
+            <label class="badge badge-pill badge-dark">color</label>
+            <select class="form-control form-control-lg" asp-for="ColorID" asp-items="Model.Color"></select>
+        </div>
+        <div class="form-group">
+            <label class="badge badge-pill badge-dark">Drive type</label>
+            <select class="form-control form-control-lg" asp-for="DriveTypeID" asp-items="Model.DriveType"></select>
+        </div>
+        <div class="form-group">
+            <label class="badge badge-pill badge-dark">Transmission</label>
+            <select class="form-control form-control-lg" asp-for="TransmissionID" asp-items="Model.Transmission"></select>
+        </div>
+        <div class="form-group">
+            <label class="badge badge-pill badge-dark">Number of seats</label>
+            <input class="form-control form-control-lg" asp-for="NumberOfSeats" />
+        </div>
+        <div class="form-group">
+            <label class="badge badge-pill badge-dark">Number of dors</label>
+            <input class="form-control form-control-lg" asp-for="NumberOfDors" />
+        </div>
+        <div class="form-group">
+            <label class="badge badge-pill badge-dark">Number of gears</label>
+            <input class="form-control form-control-lg" asp-for="NumberOfGears" />
+        </div>
+        <div class="form-group">
+            <label class="badge badge-pill badge-dark">Power ps</label>
+            <input class="form-control form-control-lg" asp-for="PowerPS" />
+        </div>
+        <div class="form-group">
+            <label class="badge badge-pill badge-dark">Power Kw</label>
+            <input class="form-control form-control-lg" asp-for="PowerKw" />
+        </div>
+        <div class="form-group">
+            <label class="badge badge-pill badge-dark">Wheel size</label>
+            <input class="form-control form-control-lg" asp-for="WheelSize" />
+        </div>
+        <div class="form-group">
+            <label class="badge badge-pill badge-dark">CCM</label>
+            <input class="form-control form-control-lg" asp-for="Ccm" />
+        </div>
+        <div class="form-group">
+            <label class="badge badge-pill badge-dark">Kilometre</label>
+            <input class="form-control form-control-lg" asp-for="Kilometre" />
+        </div>
+        <div class="form-group">
+            <label class="badge badge-pill badge-dark">Date of manufacture</label>
+            <input class="form-control form-control-lg" asp-for="DateOfManufacture" />
+        </div>
+        <div class="form-group">
+            <label class="badge badge-pill badge-dark">Price</label>
+            <input class="form-control form-control-lg" asp-for="Price" />
+        </div>
+        <div class="form-group">
+
+            <div class="col-sm-10">
+                <div class="custom-file">
+                    <input class="custom-file-input form-control" asp-for="Images" type="file" multiple accept="image/*" />
+                    <label class="custom-file-label">Add an image</label>
+                </div>
+            </div>
+        </div>
+        <input class="btn btn-primary mb-2" type="submit" value="Save" />
+    </div>
+</form>
+<script>
+    function SearchBrand(valueSelected) // pronalazi modele vozila za dati brend
+    {
+       $.ajax({
+                url: "@Url.Action("CarModelGetJson", "Car")",
+                type: "POST",
+                data:
+                {
+                    "BrandID": valueSelected
+                },
+                dataType: 'JSON',
+                success: function (data)
+                {
+                    console.log(data);
+                    var s = '<option value="-1">Odaberite model</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        s += '<option value="' + data[i].id + '">' + data[i].nazivModela + '</option>';
+                    }
+                    $("#itsModel").html(s);
+
+                },
+                error: function (request, error) {
+                    alert("Request: " + JSON.stringify(request));
+                }
+            });
+    }
+    const brandValue = $("#SelectedBrand").val();
+    SearchBrand(brandValue);
+        
+    $("#SelectedBrand").on("change", function () {
+        const valueSelected = this.value;
+        SearchBrand(valueSelected);
+    });
+
+    $("#itsModel").on("change", function () {
+
+        const valueSelected = $(this).val();
+        const BrandSelected = document.getElementById("SelectedBrand").value;
+
+            console.log(valueSelected, BrandSelected);
+            $.ajax({
+                url: "@Url.Action("CarModelGetJson", "Car")",
+                type: "POST",
+                data:
+                {
+                    "BrandID": BrandSelected,
+                    "CarModelID": valueSelected,
+                },
+                dataType: 'JSON',
+                success: function (data)
+                {
+                    console.log(data);
+                },
+                error: function (request, error) {
+                    alert("Request: " + JSON.stringify(request));
+                }
+            });
+        });
+
+
+</script>

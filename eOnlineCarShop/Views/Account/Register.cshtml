@@ -1,0 +1,67 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model RegisterVM
+    <style>
+        .content {
+
+        }
+    </style>
+    <div class="content" style="background:#323232;border-radius:20px;">
+        <div class="col-md-12 mt-4">
+            <form method="post"  class="w-75 mx-auto" asp-controller="Account" asp-action="Register">
+                <h3 class="font-weight-bold text-center">REGISTER</h3>
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <div class="form-group text-center font-weight-bold">
+                    <label asp-for="FirstName"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group text-center font-weight-bold">
+                    <label asp-for="LastName"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group text-center font-weight-bold">
+                    <label asp-for="BirthDate"></label>
+                    <input asp-for="BirthDate" class="form-control" />
+                    <span asp-validation-for="BirthDate" class="text-danger"></span>
+                </div>
+                <div class="form-group text-center font-weight-bold">
+                    <label>Gender : </label>
+                    <select asp-for="GenderID" asp-items="@Model.genders"></select>
+                </div>
+                <div class="form-group text-center font-weight-bold">
+                    <label>City : </label>
+                    <select asp-for="CityID" asp-items="@Model.city"></select>
+                </div>
+                <div class="form-group text-center font-weight-bold">
+                    <label asp-for="PhoneNumber"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-group text-center font-weight-bold">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group text-center font-weight-bold">
+                    <label asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group text-center font-weight-bold">
+                    <label asp-for="ConfirmPassword"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <div class="mx-auto text-center">
+                    <button class="btn btn-dark" style="color: #14FFEC;" type="submit">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>

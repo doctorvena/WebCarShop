@@ -1,0 +1,75 @@
+﻿@using eOnlineCarShop.ViewModels
+@model List<ShoppingCartVM>
+@{
+    ViewData["Title"] = "ShoppingCart";
+}
+
+<style>
+    wrapper {
+        padding: 4%;
+    }
+
+    img {
+        width: 20rem;
+        height: auto;
+        margin: 3px;
+    }
+
+    .cards {
+        background-color: #333F44;
+        margin: 3%;
+        padding: 5px;
+        border-radius: 10px;
+    }
+
+    #cardbtn {
+        margin: 2%;
+    }
+
+    p {
+        border-bottom: 1px solid white;
+        width: 20%;
+    }
+
+    h5 {
+        font-size: 40px;
+    }
+</style>
+<div class="wrapper" style="background:#323232;">
+    @if (Model.Any())
+    {
+        int[] pomocniNizID = new int[Model.Count()];
+        int c = 0;
+        @foreach (var item in Model)
+        {
+            if (!pomocniNizID.Contains(item.CarId))
+            {
+
+                <div class="cards ">
+                    <h5 class="card-title">@item.Brand @item.Model</h5>
+                    <img src="@item.images[0]">
+                    @for (int i = 1; i < item.images.Count; i++)
+                    {
+                        <img src="@item.images[i]">
+                    }
+                    <p class="card-text">Price: @item.Price (Total: @(@item.Price*@item.CountSameCarID))</p>
+                    <p class="card-text">Quantity: @item.CountSameCarID</p>
+                    <p class="card-text">Number of Dors: @item.NumberOfDors</p>
+                    <a id="cardbtn" class="btn btn-danger " asp-controller="Shop" asp-action="RemoveFromCart" asp-route-id="@item.CartId">Remove from cart</a>
+
+                </div>
+                pomocniNizID[c] = item.CarId;
+                c++;
+            }
+        }
+        @*<a id="cardbtn" class="btn btn-success" asp-controller="Shop" asp-action="Checkout">Checkout</a>*@
+    }
+    else
+    {
+        <p>Your Cart is Empty</p>
+    }
+    <a id="cardbtn" class="btn btn-success" asp-controller="Shop" asp-action="Checkout">Checkout</a>
+
+    <a class="btn btn-danger" asp-controller="Shop" asp-action="ShopViewDiv">Back to shop</a>
+
+</div>

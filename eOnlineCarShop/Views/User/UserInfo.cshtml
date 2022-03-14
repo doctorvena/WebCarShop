@@ -1,0 +1,41 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "UserInfo";
+}
+<style>
+    .wrapper {
+        display: flex;
+        box-sizing: border-box;
+        height: 650px;
+        border-radius: 20px 20px 20px 20px;
+    }
+    .left1 {
+        width: 30%;
+        border-radius: 0px 27px 0px 0px;
+        background-color: #0D7377;
+        height: 100%;
+        margin-top: 0px;
+    }
+    .right1 {
+        width: 70%;
+        background-color: #323232;
+        margin-left:30%;
+        position: center;
+    }
+</style>
+<div class="wrapper" style="background:#323232;">
+    <div class="left1">
+        <h5 class="mt-3 text-center">User options:</h5>
+        <ul style="text-decoration:none;justify-items:center;">
+            <li class="mt-3">
+                <a class="btn btn-dark" style="color: #14FFEC;" asp-controller="User" asp-action="UserEdit">Edit profile</a>
+            </li>
+        </ul>
+    </div>
+    <div class="right1">
+        <h2 class="mt-5" style="color:#14FFEC;">Wellcome </h2>
+        <p></p>
+    </div>
+</div>

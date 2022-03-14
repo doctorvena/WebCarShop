@@ -1,0 +1,48 @@
+﻿@using eOnlineCarShop.ViewModels
+@model ShowCarsVM
+@{
+    ViewData["Title"] = "Pregled Vozila";
+}
+
+<hr />
+<div class="card mb-3">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="@Model.images[0]" class="d-block w-100">
+            </div>
+            @for (int i = 1; i < Model.images.Count; i++)
+            {
+                <div class="carousel-item">
+                    <img src="@Model.images[i]" class="d-block w-100">
+                </div>
+            }
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </a>
+    </div>
+    <hr />
+    <div class="card-body text-dark">
+        <h1 class="card-title">@Model.Brand @Model.CarModel </h1>
+        <hr />
+        <h2>@Model.Price</h2>
+        <hr />
+        <h4>CMM: <small class="text-muted">@Model.Ccm</small></h4>
+        <h4>Fuel: <small class="text-muted">@Model.Fuel</small></h4>
+        <h4>Transmission: <small class="text-muted">@Model.Transmission</small></h4>
+        <h4>Colo: <small class="text-muted">@Model.Color</small></h4>
+        <h4>Drive type: <small class="text-muted">@Model.DriveType</small></h4>
+        <h4>Vehicle type: <small class="text-muted">@Model.VehicleType</small></h4>
+        <h4>Seates: <small class="text-muted">@Model.NumberOfSeats</small></h4>
+        <h4>Dors: <small class="text-muted">@Model.NumberOfDors</small></h4>
+        <h4>Gears: <small class="text-muted">@Model.NumberOfGears</small></h4>
+        <h4>Kilometre: <small class="text-muted">@Model.Kilometre</small></h4>
+        <h4>Date: <small class="text-muted">@Model.DateOfManufacture</small></h4>
+    </div>
+</div>
+<hr />
+
